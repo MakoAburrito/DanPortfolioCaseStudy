@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infinite Horizontal Scrolling Cards</title>
+<style>
+  .container {
+    display: flex; /* or use grid */
+    overflow: hidden;
+    width: 100%;
+  }
+  .card {
+    flex: 0 0 auto;
+    width: 200px; /* Set your card width */
+    transition: transform 0.5s ease; /* Smooth transition */
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="cardContainer">
+  <div class="card">Card 1</div>
+  <div class="card">Card 2</div>
+  <!-- Add more cards as needed -->
+</div>
+
+<script>
+  const container = document.getElementById('cardContainer');
+  let scrollAmount = 0;
+  const speed = 1; // Adjust scrolling speed
+
+  function scrollCards() {
+    scrollAmount += speed;
+    container.style.transform = `translateX(-${scrollAmount}px)`;
+
+    // Reset scroll position when all cards have scrolled
+    if (scrollAmount >= container.scrollWidth) {
+      scrollAmount = 0;
+      container.style.transform = `translateX(0)`;
+    }
+
+    requestAnimationFrame(scrollCards);
+  }
+
+  scrollCards();
+</script>
+
+</body>
+</html>
